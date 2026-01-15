@@ -1,8 +1,8 @@
 import Link from "next/link";
 
 interface CategoryPageProps {
-  params: { slug: string };
-  searchParams: { page?: string; limit?: string };
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ page?: string; limit?: string }>;
 }
 
 const mockProducts = Array.from({ length: 12 }).map((_, idx) => ({
@@ -15,10 +15,11 @@ const mockProducts = Array.from({ length: 12 }).map((_, idx) => ({
   slug: `sample-book-${idx + 1}`
 }));
 
-export default function CategoryPage({ params, searchParams }: CategoryPageProps) {
-  const { slug } = params;
-  const page = Number(searchParams.page ?? "1");
-  const limit = Number(searchParams.limit ?? "12");
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+  const { slug } = await params;
+  const { page: pageParam, limit: limitParam } = await searchParams;
+  const page = Number(pageParam ?? "1");
+  const limit = Number(limitParam ?? "12");
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 space-y-8">

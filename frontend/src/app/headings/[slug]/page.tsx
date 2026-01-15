@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 interface HeadingPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
 const mockCategories = Array.from({ length: 8 }).map((_, idx) => ({
@@ -11,8 +11,8 @@ const mockCategories = Array.from({ length: 8 }).map((_, idx) => ({
   productCount: Math.floor(Math.random() * 100) + 10,
 }));
 
-export default function HeadingPage({ params }: HeadingPageProps) {
-  const { slug } = params;
+export default async function HeadingPage({ params }: HeadingPageProps) {
+  const { slug } = await params;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 space-y-8">

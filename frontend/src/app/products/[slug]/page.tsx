@@ -1,9 +1,9 @@
 interface ProductPageProps {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }
 
-export default function ProductPage({ params }: ProductPageProps) {
-  const { slug } = params;
+export default async function ProductPage({ params }: ProductPageProps) {
+  const { slug } = await params;
 
   return (
     <div className="mx-auto max-w-4xl px-4 py-10 space-y-8">
